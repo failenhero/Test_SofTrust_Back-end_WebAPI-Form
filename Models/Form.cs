@@ -1,15 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI_Form.Models
 {
     public class Form
     {
+        [Required(ErrorMessage = "Укажите имя пользователя")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Укажите email")]
+        [EmailAddress(ErrorMessage = "Введён некорректный email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Укажите телефон")]
         public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Не указан Id темы обращения")]
         public int TopicId { get; set; }
+
+        [Required(ErrorMessage = "Не указан текст обращения")]
         public string Message { get; set; }
 
         public static Form ManageForm (Form currentForm)

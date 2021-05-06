@@ -17,6 +17,14 @@ namespace WebAPI_Form.Controllers
         [HttpPost]
         public async Task<ActionResult<Form>> Post(Form form)
         {
+            if (form.Name == "admin")
+            {
+                ModelState.AddModelError("Name", "Недопустимое имя пользователя - admin");
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             Form currentForm = Form.ManageForm(form);
 
             await dataBase.SaveChangesAsync();
