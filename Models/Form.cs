@@ -29,22 +29,33 @@ namespace WebAPI_Form.Models
             {
                 List<Contact> checkIfContactExists()
                 {
-                    return dataBase
-                            .Contacts
-                            .FromSqlInterpolated($"SELECT * FROM contacts WHERE CONVERT(VARCHAR, contact_name) = {currentForm.Name} AND CONVERT(VARCHAR, contact_email) = {currentForm.Email} AND CONVERT(VARCHAR, contact_phone) = {currentForm.Phone}")
-                            .ToList();
+                    string SqlQuery = $"SELECT * FROM contacts WHERE contact_name LIKE '{currentForm.Name}' AND contact_email LIKE '{currentForm.Email}' AND contact_phone LIKE '{currentForm.Phone}'";
+
+                    return Connect.ExecuteSelectContacts(SqlQuery);
+                    //List<Contact> contacts = Connect.ExecuteSelectContacts(SqlQuery);
+                    //return contacts;
+                    //return dataBase
+                    //        .Contacts
+                    //        .FromSqlInterpolated($"SELECT * FROM contacts WHERE CONVERT(VARCHAR, contact_name) = {currentForm.Name} AND CONVERT(VARCHAR, contact_email) = {currentForm.Email} AND CONVERT(VARCHAR, contact_phone) = {currentForm.Phone}")
+                    //        .ToList();
                 }
 
                 void AddNewContact()
                 {
-                    dataBase.Database
-                        .ExecuteSqlInterpolated($"INSERT INTO contacts(contact_name, contact_email, contact_phone) VALUES ({currentForm.Name}, {currentForm.Email}, {currentForm.Phone})");
+                    string SqlQuery = $"INSERT INTO contacts(contact_name, contact_email, contact_phone) VALUES ('{currentForm.Name}', '{currentForm.Email}', '{currentForm.Phone}')";
+
+                    Connect.ExecuteInsert(SqlQuery);
+                    //dataBase.Database
+                    //    .ExecuteSqlInterpolated($"INSERT INTO contacts(contact_name, contact_email, contact_phone) VALUES ({currentForm.Name}, {currentForm.Email}, {currentForm.Phone})");
                 }
 
                 void AddNewMessage(int contactId)
                 {
-                    dataBase.Database
-                        .ExecuteSqlInterpolated($"INSERT INTO allMessages(rf_contact_id, rf_topic_id, message_text) VALUES ({contactId}, {currentForm.TopicId}, {currentForm.Message})");
+                    string SqlQuery = $"INSERT INTO allMessages(rf_contact_id, rf_topic_id, message_text) VALUES ('{contactId}', '{currentForm.TopicId}', '{currentForm.Message}')";
+
+                    Connect.ExecuteInsert(SqlQuery);
+                    //dataBase.Database
+                    //    .ExecuteSqlInterpolated($"INSERT INTO allMessages(rf_contact_id, rf_topic_id, message_text) VALUES ({contactId}, {currentForm.TopicId}, {currentForm.Message})");
                 }
 
                 var contactFromDataBase = checkIfContactExists();
