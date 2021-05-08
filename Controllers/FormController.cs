@@ -32,7 +32,7 @@ namespace WebAPI_Form.Controllers
                 ModelState.AddModelError("TopicId", "TopicId is not a number. DataType int is awaited");
             }
 
-            var topicsInDBWithThisId = Topic.ifTopicExistInDataBase(form.TopicId);
+            var topicsInDBWithThisId = Topic.IfTopicExistInDataBase(form.TopicId);
 
             if(topicsInDBWithThisId.Count == 0)
             {
