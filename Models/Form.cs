@@ -31,69 +31,56 @@ namespace WebAPI_Form.Models
             {
                 //using ADO.NET below:
 
-                //string SqlQuery = $"SELECT * FROM contacts WHERE contact_name LIKE '{currentForm.Name}' AND contact_email LIKE '{currentForm.Email}' AND contact_phone LIKE '{currentForm.Phone}'";
-                //
-                //return Connect.ExecuteSelectContacts(SqlQuery);
+                string SqlQuery = $"SELECT * FROM contacts WHERE contact_name LIKE '{currentForm.Name}' AND contact_email LIKE '{currentForm.Email}' AND contact_phone LIKE '{currentForm.Phone}'";
+                
+                return Connect.ExecuteSelectContacts(SqlQuery);
 
                 //using Entity Framework below:
 
-                List<Contact> contacts = dataBase
-                                            .Contacts
-                                            .Where(con => con.ContactName == currentForm.Name && con.ContactEmail == currentForm.Email && con.ContactPhone == currentForm.Phone)
-                                            .ToList();
-
-                return contacts;
-
-                //List<Contact> contacts = Connect.ExecuteSelectContacts(SqlQuery);
+                //List<Contact> contacts = dataBase
+                //                            .Contacts
+                //                            .Where(con => con.ContactName == currentForm.Name && con.ContactEmail == currentForm.Email && con.ContactPhone == currentForm.Phone)
+                //                            .ToList();
+                //
                 //return contacts;
-                //return dataBase
-                //        .Contacts
-                //        .FromSqlInterpolated($"SELECT * FROM contacts WHERE CONVERT(VARCHAR, contact_name) = {currentForm.Name} AND CONVERT(VARCHAR, contact_email) = {currentForm.Email} AND CONVERT(VARCHAR, contact_phone) = {currentForm.Phone}")
-                //        .ToList();
             }
 
             void AddNewContact()
             {
                 //using ADO.NET below:
 
-                //string SqlQuery = $"INSERT INTO contacts(contact_name, contact_email, contact_phone) VALUES ('{currentForm.Name}', '{currentForm.Email}', '{currentForm.Phone}')";
-                //
-                //Connect.ExecuteInsert(SqlQuery);
+                string SqlQuery = $"INSERT INTO contacts(contact_name, contact_email, contact_phone) VALUES ('{currentForm.Name}', '{currentForm.Email}', '{currentForm.Phone}')";
+                
+                Connect.ExecuteInsert(SqlQuery);
 
                 //using Entity Framework below:
 
-                dataBase.Contacts.Add(new Contact { 
-                    ContactName = currentForm.Name,
-                    ContactEmail = currentForm.Email,
-                    ContactPhone = currentForm.Phone
-                });
-
-                dataBase.SaveChanges();
-
-                //dataBase.Database
-                //    .ExecuteSqlInterpolated($"INSERT INTO contacts(contact_name, contact_email, contact_phone) VALUES ({currentForm.Name}, {currentForm.Email}, {currentForm.Phone})");
+                //dataBase.Contacts.Add(new Contact { 
+                //    ContactName = currentForm.Name,
+                //    ContactEmail = currentForm.Email,
+                //    ContactPhone = currentForm.Phone
+                //});
+                //
+                //dataBase.SaveChanges();
             }
 
             void AddNewMessage(int contactId)
             {
                 //using ADO.NET below:
 
-                //string SqlQuery = $"INSERT INTO allMessages(rf_contact_id, rf_topic_id, message_text) VALUES ('{contactId}', '{currentForm.TopicId}', '{currentForm.Message}')";
-                //
-                //Connect.ExecuteInsert(SqlQuery);
+                string SqlQuery = $"INSERT INTO allMessages(rf_contact_id, rf_topic_id, message_text) VALUES ('{contactId}', '{currentForm.TopicId}', '{currentForm.Message}')";
+                
+                Connect.ExecuteInsert(SqlQuery);
 
                 //using Entity Framework below:
 
-                dataBase.AllMessages.Add(new AllMessage {
-                    RfContactId = contactId,
-                    RfTopicId = currentForm.TopicId,
-                    MessageText = currentForm.Message
-                });
-
-                dataBase.SaveChanges();
-
-                //dataBase.Database
-                //    .ExecuteSqlInterpolated($"INSERT INTO allMessages(rf_contact_id, rf_topic_id, message_text) VALUES ({contactId}, {currentForm.TopicId}, {currentForm.Message})");
+                //dataBase.AllMessages.Add(new AllMessage {
+                //    RfContactId = contactId,
+                //    RfTopicId = currentForm.TopicId,
+                //    MessageText = currentForm.Message
+                //});
+                //
+                //dataBase.SaveChanges();
             }
 
             var contactFromDataBase = checkIfContactExists();

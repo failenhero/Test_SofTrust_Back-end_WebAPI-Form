@@ -19,14 +19,12 @@ namespace WebAPI_Form.Controllers
             db = context;
         }
 
-        // GET: api/<TopicsController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Topic>>> Get()
         {
             return await db.Topics.ToListAsync();
         }
 
-        // GET api/<TopicsController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Topic>> Get(int id)
         {
@@ -36,7 +34,6 @@ namespace WebAPI_Form.Controllers
             return new ObjectResult(topic);
         }
 
-        // POST api/<TopicsController>
         [HttpPost]
         public async Task<ActionResult<Topic>> Post(Topic topic)
         {
@@ -50,25 +47,6 @@ namespace WebAPI_Form.Controllers
             return Ok(topic);
         }
 
-        // PUT api/<TopicsController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Topic>> Put(Topic topic)
-        {
-            if (topic == null)
-            {
-                return BadRequest();
-            }
-            if (!db.Topics.Any(x => x.TopicId == topic.TopicId))
-            {
-                return NotFound();
-            }
-
-            db.Update(topic);
-            await db.SaveChangesAsync();
-            return Ok(topic);
-        }
-
-        // DELETE api/<TopicsController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Topic>> Delete(int id)
         {

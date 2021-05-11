@@ -17,14 +17,12 @@ namespace WebAPI_Form.Controllers
             db = context;
         }
 
-        // GET: api/<ContactsController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contact>>> Get()
         {
             return await db.Contacts.ToListAsync();
         }
  
-        // GET api/<ContactsController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> Get(int id)
         {
@@ -34,7 +32,6 @@ namespace WebAPI_Form.Controllers
             return new ObjectResult(contact);
         }
 
-        // POST api/<ContactsController>
         [HttpPost]
         public async Task<ActionResult<Contact>> Post(Contact contact)
         {
@@ -48,25 +45,6 @@ namespace WebAPI_Form.Controllers
             return Ok(contact);
         }
 
-        // PUT api/<ContactsController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Contact>> Put(Contact contact)
-        {
-            if (contact == null)
-            {
-                return BadRequest();
-            }
-            if (!db.Contacts.Any(x => x.ContactId == contact.ContactId))
-            {
-                return NotFound();
-            }
-
-            db.Update(contact);
-            await db.SaveChangesAsync();
-            return Ok(contact);
-        }
-
-        // DELETE api/<ContactsController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Contact>> Delete(int id)
         {

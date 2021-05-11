@@ -20,14 +20,12 @@ namespace WebAPI_Form.Controllers
             db = context;
         }
 
-        // GET: api/<AllMessageController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AllMessage>>> Get()
         {
             return await db.AllMessages.ToListAsync();
         }
 
-        // GET api/<AllMessageController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AllMessage>> Get(int id)
         {
@@ -37,7 +35,6 @@ namespace WebAPI_Form.Controllers
             return new ObjectResult(message);
         }
 
-        // POST api/<AllMessageController>
         [HttpPost]
         public async Task<ActionResult<AllMessage>> Post(AllMessage message)
         {
@@ -51,25 +48,6 @@ namespace WebAPI_Form.Controllers
             return Ok(message);
         }
 
-        // PUT api/<AllMessageController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<AllMessage>> Put(AllMessage message)
-        {
-            if (message == null)
-            {
-                return BadRequest();
-            }
-            if (!db.AllMessages.Any(x => x.MessageId == message.MessageId))
-            {
-                return NotFound();
-            }
-
-            db.Update(message);
-            await db.SaveChangesAsync();
-            return Ok(message);
-        }
-
-        // DELETE api/<AllMessageController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<AllMessage>> Delete(int id)
         {
